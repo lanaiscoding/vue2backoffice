@@ -51,20 +51,25 @@
                 </el-card>
             </div>
             <!-- 折线图 -->
-            <el-card style="height:280px">
-
+            <el-card>
+                <div ref="echart1" style="height:280px"></div>
             </el-card>
 
             <!-- 其他图表 -->
             <div class="flex-center graph">
-                <el-card ></el-card>
-                <el-card ></el-card>
+                <el-card >
+                    <div ref="echart2" style="height:260px"></div>
+                </el-card>
+                <el-card >
+                    <div ref="echart3" style="height:240px"></div>
+                </el-card>
             </div>
         </el-col>
     </el-row>
 </template>
 <script>
 import { getData } from "../api";
+import * as echarts from 'echarts';
 export default {
     data() {
         return {
@@ -120,7 +125,103 @@ export default {
         getData().then(({ data }) => {
             const { tableData } = data.data
             this.tableData = tableData
+
+            //1.基于准备好的dom，初始化echarts实例
+            const echart1 = echarts.init(this.$refs.echart1)
+            //指定图表的配置项和数据
+            var echart1Option = {}
+            //处理数据xAxis
+            const { orderData, userData, videoData } = data.data
+            const xAxis = Object.keys(orderData.data[0])
+            const xAxisData = {
+                data: xAxis
+            }
+            echart1Option.xAxis = xAxisData
+            echart1Option.yAxis = {}
+            echart1Option.legend = xAxisData
+            echart1Option.series = []
+            xAxis.forEach(key => {
+                echart1Option.series.push({
+                    name: key,
+                    data: orderData.data.map(item => item[key]),
+                    type: 'line'
+                })
+            })
+
+            //使用指定的配置项和数据显示图表
+            echart1.setOption(echart1Option)
+
+            // 柱状图
+            const echart2 = echarts.init(this.$refs.echart2)
+            const echart2Option = {
+                legend: {
+                    textStyle: {
+                        color: "#333",
+                    },
+                },
+                grid: {
+                    left: "20%"
+                },
+                //提示框
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: "category",
+                    data: userData.map(item => item.date),
+                    axisLine: {
+                        lineStyle: {
+                            color: "#17b3a3"
+                        },
+                    },
+                    axisLabel: {
+                        interval: 0,
+                        color: "#333"
+                    }
+                },
+                yAxis: [{
+                    type: "value",
+                    axisLine: {
+                        lineStyle: {
+                            color: "#17b3a3"
+                        }
+                    }
+                }],
+                color: ["#2ec7c9", "#b6b2de"],
+                series: [
+                    {
+                        name: "新增用户",
+                        data: userData.map(item => item.new),
+                        type: 'bar'
+                    },
+                    {
+                        name: "活跃用户",
+                        data: userData.map(item => item.active),
+                        type: 'bar'
+                    }
+                ],
+            }
+            echart2.setOption(echart2Option)
+
+            // 饼图
+            const echart3 = echarts.init(this.$refs.echart3)
+            const echart3Option = {
+                tooltip: {
+                    trigger: "item"
+                },
+                series: [
+                    {
+                        data: videoData,
+                        type: 'pie'
+                    }
+                ],
+
+            }
+            console.log(echart3Option)
+            echart3.setOption(echart3Option)
         })
+
+
     },
 }
 </script>

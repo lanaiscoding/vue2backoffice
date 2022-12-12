@@ -1,9 +1,11 @@
 <template lang="">
     <div class="header-container flex-center">
         <div class="l-content">
-            <el-button @click="handleMenu" icon="el-icon-menu" size="mini"></el-button>
+            <el-button @click="handleMenu" icon="el-icon-menu" size="mini" style="margin-right:10px" />
             <!-- 面包屑 -->
-            <span class="text">首页</span>
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item v-for="item in tags" :key="item.path" :to="{ path: item.path }">{{item.label}}</el-breadcrumb-item>
+            </el-breadcrumb>
         </div>
         <div class="r-content">
             <el-dropdown>
@@ -18,7 +20,10 @@
         </div>
     </div>
 </template>
+
 <script>
+//获取面包屑里的数据，store里的state。
+import { mapState } from 'vuex'
 export default {
     data() {
         return {
@@ -31,7 +36,12 @@ export default {
             // console.log('点击')
             this.$store.commit('COLLAPSE_MENU')
         }
-    }
+    },
+    computed: {
+        ...mapState({
+            tags: state => state.tab.tabsList
+        })
+    },
 }
 </script>
 <style lang="less" scoped>
@@ -44,6 +54,25 @@ export default {
         color: #fff;
         font-size: 14px;
         margin-left: 10px;
+    }
+
+    .l-content {
+        display: flex;
+        align-items: center;
+
+        /deep/.el-breadcrumb__item {
+            .el-breadcrumb__inner {
+                &.is-link {
+                    color: #666;
+                }
+            }
+
+            &:last-child {
+                .el-breadcrumb__inner {
+                    color: #fff;
+                }
+            }
+        }
     }
 
     .r-content {

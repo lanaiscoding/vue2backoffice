@@ -1,10 +1,8 @@
 <template lang="">
     <el-menu 
-        default-active="1-4-1" 
+        :default-active="$route.name" 
         class="el-menu-vertical-demo"
         :collapse="isCollapse"
-        @open="handleOpen" 
-        @close="handleClose"
         background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
@@ -15,13 +13,13 @@
             <span slot="title">{{item.label}}</span>
         </el-menu-item>
 
-        <el-submenu v-for="item in hasChildren" :key="item.label" :index="item.label">
+        <el-submenu  v-for="item in hasChildren" :key="item.label" :index="item.label">
             <template slot="title">
                 <i :class="`el-icon-${item.icon}`"></i>
                 <span slot="title">{{item.label}}</span>
             </template>
-            <el-menu-item-group v-for="subItem in item.children" :key="subItem.path" >
-                <el-menu-item :index="subItem.path">{{subItem.label}}</el-menu-item>
+            <el-menu-item-group   v-for="subItem in item.children" :key="subItem.path" >
+                <el-menu-item :index="subItem.path" @click="clickMenu(subItem)">{{subItem.label}}</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
     </el-menu>
@@ -30,7 +28,6 @@
 export default {
     data() {
         return {
-
             menuData: [
                 {
                     path: '/',
@@ -77,19 +74,14 @@ export default {
         }
     },
     methods: {
-        handleOpen(key, keyPath) {
-            console.log(key, keyPath);
-        },
-        handleClose(key, keyPath) {
-            console.log(key, keyPath);
-        },
         //点击菜单
         clickMenu(item) {
             //当页面的路由与跳转的路由不一致时才允许跳转,
             if (this.$route.path !== item.path && !(this.$route.path === '/home' && item.path === '/')) {
                 this.$router.push(item.path)
             }
-
+            //实现面包屑效果
+            this.$store.commit('SELECT_MENU', item)
         },
     },
     computed: {
