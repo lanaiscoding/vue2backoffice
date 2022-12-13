@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+import Cookies from 'js-cookie';
+
 //没用懒加载
 import Home from "../views/Home";
 import User from "../views/User";
@@ -9,6 +11,8 @@ import Main from "../views/Main";
 import Mall from "../views/Mall";
 import PageOne from "../views/PageOne";
 import PageTwo from "../views/PageTwo";
+
+import Login from "../views/Login";
 
 const routes = [{
         path: '/',
@@ -41,11 +45,35 @@ const routes = [{
             }, //页面2
         ]
     },
-
+    {
+        path: '/login',
+        name: 'login',
+        component: Login
+    },
 ]
 
 const router = new VueRouter({
     routes
+})
+
+//前置路由守卫
+router.beforeEach((to, from, next) => {
+    const token = Cookies.get("token")
+
+    //token不存在且非login页面
+    if (!token && to.name !== 'login') {
+        next({
+            name: 'login'
+        })
+    }
+    //防止重复登录
+    else if (token && to.name === 'login') {
+        next({
+            name: 'home'
+        })
+    } else {
+        next()
+    }
 })
 
 export default router

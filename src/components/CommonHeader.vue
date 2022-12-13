@@ -8,13 +8,13 @@
             </el-breadcrumb>
         </div>
         <div class="r-content">
-            <el-dropdown>
+            <el-dropdown @command="handleCommand">
                 <span class="el-dropdown-link">
                     <img class="user_avatar" src="../assets/logo.png" alt="">
                 </span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item>个人中心</el-dropdown-item>
-                    <el-dropdown-item>退出</el-dropdown-item>
+                    <el-dropdown-item command="Logout">退出</el-dropdown-item>
                 </el-dropdown-menu>
                 </el-dropdown>
         </div>
@@ -22,8 +22,9 @@
 </template>
 
 <script>
-//获取面包屑里的数据，store里的state。
+//获取面包屑里的数据,store里的state。
 import { mapState } from 'vuex'
+import Cookie from 'js-cookie'
 export default {
     data() {
         return {
@@ -35,6 +36,14 @@ export default {
             //不需要传入属性嘛？这里只传了方法呢。
             // console.log('点击')
             this.$store.commit('COLLAPSE_MENU')
+        },
+        handleCommand(Logout) {
+            Cookie.remove('token')
+            this.$message({
+                message: '退出成功',
+                type: 'success'
+            });
+            this.$router.push('login')
         }
     },
     computed: {

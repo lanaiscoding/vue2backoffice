@@ -9,6 +9,7 @@ export const getData = () => {
 //请求用户列表数据
 export const getUser = (params) => {
     //返回用户列表
+    console.log(params)
     return http.get('/user/getUser', params)
 }
 
@@ -22,4 +23,8 @@ export const editUser = (data) => {
 
 export const delUser = (data) => {
     return http.post('/user/del', data)
+}
+
+export const getMenu = (data) => {
+    return http.post('/permission/getMenu', data)
 }

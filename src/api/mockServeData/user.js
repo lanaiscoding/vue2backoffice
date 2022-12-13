@@ -40,6 +40,7 @@ export default {
      *@return {{code:number,count:number,data:*[]}}
      */
     getUserList: config => {
+        console.log(config)
         const {
             name,
             page = 1,
@@ -130,7 +131,7 @@ export default {
     },
 
     /**
-     * 修放用户
+     * 修改用户
      *@param id,name,addr,age,birth,sex 
      *@return {{code: number,data: {message: string}}}
      */

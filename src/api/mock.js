@@ -1,6 +1,7 @@
 import Mock from 'mockjs'
 import homeApi from './mockServeData/home'
 import user from './mockServeData/user'
+import permission from './mockServeData/permission'
 
 //定义mock请求拦截 是get时可以省略，应该表示默认时get吧 这个Url难道会默认去掉前缀吗？？？神奇。。视频里是有个/api的。
 // Mock.mock('/home/getData', function () {
@@ -16,4 +17,7 @@ Mock.mock('/home/getData', homeApi.getStatisticalData)
 Mock.mock('/user/add', 'post', user.createUser)
 Mock.mock('/user/edit', 'post', user.updateUser)
 Mock.mock('/user/del', 'post', user.deleteUser)
-Mock.mock('/user/getUser', user.getUserList)
+Mock.mock(/user\/getUser/, user.getUserList)
+
+//登录账号
+Mock.mock(/permission\/getMenu/, 'post', permission.getMenu)
