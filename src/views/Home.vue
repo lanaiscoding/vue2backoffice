@@ -217,7 +217,7 @@ export default {
                 ],
 
             }
-            console.log(echart3Option)
+            // console.log(echart3Option)
             echart3.setOption(echart3Option)
         })
 

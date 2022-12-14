@@ -51,8 +51,13 @@ export default {
                                 message: '登录成功',
                                 type: 'success'
                             });
+
+                            //根据登录账号修改对应的菜单列表
+                            this.$store.commit('GET_MENU', data.data.menu)
+                            //修改路由
+                            this.$store.commit('GET_SUBROUTER', this.$router)
                             //跳转到首页
-                            this.$router.push('/home')
+                            this.$router.push('/')
                         } else {
                             this.$message.error(data.data.message)
                         }

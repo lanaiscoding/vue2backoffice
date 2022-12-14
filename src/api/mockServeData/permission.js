@@ -12,25 +12,25 @@ export default {
                 code: 20000,
                 data: {
                     menu: [{
-                            path: '/',
+                            path: '/home',
                             name: 'home',
                             label: '首页',
                             icon: 's-home',
-                            url: 'home/index'
+                            url: 'Home'
                         },
                         {
                             path: '/mall',
                             name: 'mall',
                             label: '商品管理',
                             icon: 'video-play',
-                            url: 'mall/index'
+                            url: 'Mall'
                         },
                         {
                             path: '/user',
                             name: 'user',
                             label: '用户管理',
                             icon: 'user',
-                            url: 'User/index'
+                            url: 'User'
                         },
                         {
                             label: '其他',
@@ -40,14 +40,14 @@ export default {
                                     name: 'page1',
                                     label: '页面1',
                                     icon: 'setting',
-                                    url: 'Other/PageOne'
+                                    url: 'PageOne'
                                 },
                                 {
                                     path: '/page2',
                                     name: 'page2',
                                     label: '页面2',
                                     icon: 'setting',
-                                    url: 'Other/PageTwo'
+                                    url: 'PageTwo'
                                 },
                             ]
                         },
@@ -59,23 +59,26 @@ export default {
         } else if (username === 'visitor' && password === '123') {
             return {
                 code: 20000,
-                menu: [{
-                        path: '/',
-                        name: 'home',
-                        label: '首页',
-                        icon: 's-home',
-                        url: 'home/index'
-                    },
-                    {
-                        path: '/mall',
-                        name: 'mall',
-                        label: '商品管理',
-                        icon: 'video-play',
-                        url: 'mall/index'
-                    },
-                ],
-                token: Mock.Random.guid(),
-                message: '获取成功'
+                data: {
+                    menu: [{
+                            path: '/',
+                            name: 'home',
+                            label: '首页',
+                            icon: 's-home',
+                            url: 'Home'
+                        },
+                        {
+                            path: '/mall',
+                            name: 'mall',
+                            label: '商品管理',
+                            icon: 'video-play',
+                            url: 'Mall'
+                        },
+                    ],
+                    token: Mock.Random.guid(),
+                    message: '获取成功'
+                }
+
             }
         } else {
             return {

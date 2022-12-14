@@ -38,11 +38,26 @@ export default {
             this.$store.commit('COLLAPSE_MENU')
         },
         handleCommand(Logout) {
+
             Cookie.remove('token')
+
+            //清除菜单
+            Cookie.remove('menu')
+
+            //重置一下面包屑
+            this.$store.state.tab.tabsList = [{
+                path: '/',
+                name: 'home',
+                label: '首页',
+                icon: 's-home',
+                url: 'Home/Home'
+            },]
+
             this.$message({
                 message: '退出成功',
                 type: 'success'
             });
+
             this.$router.push('login')
         }
     },

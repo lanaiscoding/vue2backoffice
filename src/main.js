@@ -14,4 +14,7 @@ new Vue({
   render: h => h(App),
   router,
   store,
+  created() {
+    store.commit('GET_SUBROUTER', router)
+  }
 }).$mount('#app')
