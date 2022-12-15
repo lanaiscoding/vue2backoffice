@@ -63,7 +63,8 @@ export default {
         //获取菜单
         menuData() {
             //可以从缓存的cookie中读,后面这个或好像意义不大。
-            return JSON.parse(Cookie.get('menu')) || this.$store.state.tab.menu
+            // return JSON.parse(Cookie.get('menu')) || this.$store.state.tab.menu
+            return JSON.parse(localStorage.getItem('menu')) || this.$store.state.tab.menu
         }
 
     },

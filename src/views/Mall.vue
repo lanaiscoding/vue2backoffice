@@ -1,5 +1,5 @@
 <template lang="">
-    <div>
+    <div style="height:100vh">
         <h1>Mall</h1>
     </div>
 </template>

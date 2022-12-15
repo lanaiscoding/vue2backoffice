@@ -46,7 +46,8 @@ export default {
                     getMenu(this.form).then(({ data }) => {
                         console.log(data)
                         if (data.code === 20000) {
-                            Cookie.set('token', data.data.token)
+                            // Cookie.set('token', data.data.token)
+                            localStorage.setItem('token', data.data.token)
                             this.$message({
                                 message: '登录成功',
                                 type: 'success'

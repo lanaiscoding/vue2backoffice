@@ -40,15 +40,18 @@ export default {
         //动态获取菜单列表
         GET_MENU(state, val) {
             state.menu = val
-            Cookie.set('menu', JSON.stringify(val))
+            // Cookie.set('menu', JSON.stringify(val))
+            localStorage.setItem('menu', JSON.stringify(val))
         },
 
         //动态获取路由列表
         GET_SUBROUTER(state, router) {
             //判断缓存中是否有数据
-            if (!Cookie.get('menu')) return
+            // if (!Cookie.get('menu')) return
+            if (!localStorage.getItem('menu')) return
 
-            const menu = JSON.parse(Cookie.get('menu'))
+            // const menu = JSON.parse(Cookie.get('menu'))
+            const menu = JSON.parse(localStorage.getItem('menu'))
 
             //更新一下数据
             state.menu = menu

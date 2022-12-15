@@ -39,10 +39,12 @@ export default {
         },
         handleCommand(Logout) {
 
-            Cookie.remove('token')
+            // Cookie.remove('token')
 
             //清除菜单
-            Cookie.remove('menu')
+            // Cookie.remove('menu')
+
+            localStorage.clear();
 
             //重置一下面包屑
             this.$store.state.tab.tabsList = [{

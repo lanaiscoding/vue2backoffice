@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        <h1>PageTwo</h1>
+        <h1 style="height:100vh">PageTwo</h1>
     </div>
 </template>
 <script>

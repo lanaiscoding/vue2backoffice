@@ -55,12 +55,24 @@ const routes = [{
 ]
 
 const router = new VueRouter({
+    mode: 'hash',
+    base: process.env.BASE_URL,
     routes
 })
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+    if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+
+
+    return originalPush.call(this, location).catch(err => err)
+}
+
+
 //前置路由守卫
 router.beforeEach((to, from, next) => {
-    const token = Cookies.get("token")
+    // const token = Cookies.get("token")
+    const token = localStorage.getItem("token")
 
     //token不存在且非login页面
     if (!token && to.name !== 'login') {
