@@ -1,9 +1,9 @@
-###基于vue2+element-ui+echarts+mockjs实现的通用后台管理系统
+### 基于vue2+element-ui+echarts+mockjs实现的通用后台管理系统
 主要实现功能：
 登录权限、动态路由菜单、用户信息的增删改查等
 
 
-#项目效果预览
+# 项目效果预览
 https://lanaiscoding.github.io/vue2backoffice/dist/
 可选登录账号：
 ①账号：admin,密码：admin
