@@ -37,30 +37,32 @@ export default {
             // console.log('点击')
             this.$store.commit('COLLAPSE_MENU')
         },
-        handleCommand(Logout) {
+        handleCommand(command) {
+            if (command === 'LogOut') {
+                // Cookie.remove('token')
+                //清除菜单
+                // Cookie.remove('menu')
 
-            // Cookie.remove('token')
+                localStorage.clear();
 
-            //清除菜单
-            // Cookie.remove('menu')
+                //重置一下面包屑
+                this.$store.state.tab.tabsList = [{
+                    path: '/',
+                    name: 'home',
+                    label: '首页',
+                    icon: 's-home',
+                    url: 'Home/Home'
+                },]
 
-            localStorage.clear();
+                this.$message({
+                    message: '退出成功',
+                    type: 'success'
+                });
 
-            //重置一下面包屑
-            this.$store.state.tab.tabsList = [{
-                path: '/',
-                name: 'home',
-                label: '首页',
-                icon: 's-home',
-                url: 'Home/Home'
-            },]
+                this.$router.push('login')
+            }
 
-            this.$message({
-                message: '退出成功',
-                type: 'success'
-            });
 
-            this.$router.push('login')
         }
     },
     computed: {
