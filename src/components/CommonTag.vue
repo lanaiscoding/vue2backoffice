@@ -9,7 +9,7 @@
             @click="changeMenu(item)"
             @close="handleClose(item,index)"
             >
-            {{ item.label }}
+            {{$t(`menu.${item.name}`)}}
          </el-tag>
     </div>
 </template>

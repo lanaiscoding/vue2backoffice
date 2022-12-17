@@ -7,19 +7,19 @@
       text-color="#fff"
       active-text-color="#ffd04b"
     >
-    <h3>{{isCollapse? '后台':'通用后台管理系统'}}</h3>
+    <h3>{{isCollapse ? $t('title').short:$t('title').long}}</h3>
         <el-menu-item @click="clickMenu(item)" v-for="item in noChildren" :key="item.name" :index="item.name">
             <i :class="`el-icon-${item.icon}`"></i>
-            <span slot="title">{{item.label}}</span>
+            <span slot="title">{{$t(`menu.${item.name}`)}}</span>
         </el-menu-item>
 
         <el-submenu  v-for="item in hasChildren" :key="item.label" :index="item.label">
             <template slot="title">
                 <i :class="`el-icon-${item.icon}`"></i>
-                <span slot="title">{{item.label}}</span>
+                <span slot="title">{{$t(`menu.${item.label}`)}}</span>
             </template>
             <el-menu-item-group   v-for="subItem in item.children" :key="subItem.path" >
-                <el-menu-item :index="subItem.path" @click="clickMenu(subItem)">{{subItem.label}}</el-menu-item>
+                <el-menu-item :index="subItem.path" @click="clickMenu(subItem)">{{$t(`menu.${subItem.name}`)}}</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
     </el-menu>

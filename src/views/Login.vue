@@ -2,14 +2,14 @@
     <el-form ref="form" :model="form" :rules="rules"  :inline="true"
     label-width="70px"
     class="login_container">
-        <h3 class="login_title">系统登录</h3>
+        <h3 class="login_title">{{$t('login.title')}}</h3>
         <el-form-item label="用户名" prop="username" >
             <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password" >
             <el-input v-model="form.password" type="password" placeholder="请输入密码"></el-input>
         </el-form-item>
-        <el-button type="primary" @click="login">登 录</el-button>
+        <el-button type="primary" @click="login">{{$t('login.btn')}}</el-button>
     </el-form>
 </template>
 <script>

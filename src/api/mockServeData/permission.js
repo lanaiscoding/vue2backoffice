@@ -34,6 +34,7 @@ export default {
                         },
                         {
                             label: '其他',
+                            name: 'others',
                             icon: 'location',
                             children: [{
                                     path: '/page1',

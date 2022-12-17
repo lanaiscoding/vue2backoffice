@@ -15,6 +15,9 @@ export default {
         //Menu数据
         menu: [],
         route: [],
+
+        //中英文切换
+        lang: localStorage.getItem('lang') || 'zh'
     },
     mutations: {
         //修改菜单展开收起的方法
@@ -79,6 +82,10 @@ export default {
             })
         },
 
+        //中英文切换
+        CHANGE_LANG(state, lang) {
+            state.lang = lang
+        }
 
     }
 }
