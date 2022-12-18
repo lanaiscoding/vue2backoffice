@@ -14,11 +14,38 @@ export default {
     data() {
         return {
             driver: null,
-            steps: [{
+            steps: null,
+        }
+    },
+    mounted() {
+        // setTimeout(() => {
+        //     this.initDriver()
+        // }, 1000)
+        this.initDriver(),
+            this.initSteps()
+    },
+    methods: {
+        initDriver() {
+            this.driver = new Driver({
+                animate: false,
+                opacity: 0.75,
+                padding: 0,
+                allowClose: true,
+                overlayClickNext: false,          // Whether the click on overlay should move next
+                doneBtnText: this.$t('driver.doneBtnText'),
+                closeBtnText: this.$t('driver.closeBtnText'),
+                stageBackground: '#ffffff',
+                nextBtnText: this.$t('driver.nextBtnText'),
+                prevBtnText: this.$t('driver.prevBtnText'),
+            })
+        },
+
+        initSteps() {
+            this.steps = [{
                 element: '#guide',
                 popover: {
                     title: this.$t('driver.guideBtn'),
-                    description: 'Body of the popover',
+                    // description: 'Body of the popover',
                     position: 'left'
                 }
             },
@@ -26,7 +53,7 @@ export default {
                 element: '#language',
                 popover: {
                     title: this.$t('driver.langBtn'),
-                    description: 'Body of the popover',
+                    // description: 'Body of the popover',
                     position: 'left'
                 }
             },
@@ -34,33 +61,31 @@ export default {
                 element: '#hamburger',
                 popover: {
                     title: this.$t('driver.hamburgerBtn'),
-                    description: 'Body of the popover',
+                    // description: 'Body of the popover',
                     position: 'bottom'
                 }
             },
             ]
-        }
-    },
-    mounted() {
-        this.driver = new Driver({
-            animate: false,
-            opacity: 0.75,
-            padding: 0,
-            allowClose: true,
-            overlayClickNext: false,          // Whether the click on overlay should move next
-            doneBtnText: this.$t('driver.doneBtnText'),
-            closeBtnText: this.$t('driver.closeBtnText'),
-            stageBackground: '#ffffff',
-            nextBtnText: this.$t('driver.nextBtnText'),
-            prevBtnText: this.$t('driver.prevBtnText'),
-        })
-    },
-    methods: {
+        },
+
         handleGuide() {
             this.driver.defineSteps(this.steps)
             this.driver.start()
         }
-    }
+    },
+    watch: {
+        "$store.state.tab.lang": {
+            handler: function (newVal) {
+                // this.$nextTick(
+                //     () => {
+                //         this.initDriver()
+                //     }
+                // )
+                this.initSteps()
+                this.initDriver()
+            }
+        },
+    },
 }
 </script>
 <style lang="less" scoped>

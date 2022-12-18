@@ -15,10 +15,16 @@ const messages = {
 }
 
 const getCurrentLanguage = () => {
-    const UAlang = navigator.language
-
-    const langCode = UAlang.indexOf('zh') !== -1 ? 'zh' : 'en'
-    localStorage.setItem('lang', langCode)
+    let langCode
+    localStorage.getItem('lang')
+    if (localStorage.getItem('lang')) {
+        console.log('111')
+        langCode = localStorage.getItem('lang')
+    } else {
+        const UAlang = navigator.language
+        langCode = UAlang.indexOf('zh') !== -1 ? 'zh' : 'en'
+        localStorage.setItem('lang', langCode)
+    }
     return langCode
 }
 
