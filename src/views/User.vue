@@ -55,10 +55,15 @@
             :inline="true">
             <el-form-item 
              prop="searchData" >
-                    <el-input placeholder="请输入字段" v-model="searchData.name"></el-input>
-                </el-form-item>
-                <el-button type="primary" 
-                @click="onSearch">搜 索</el-button>
+                <el-input placeholder="请输入字段" v-model="searchData.name"
+                >
+                </el-input>
+                
+            </el-form-item>
+            <el-button 
+            type="primary" 
+            @click="onSearch">
+            搜 索</el-button>
             </el-form>
         </div>  
         <!-- 表格&页码展示 -->
@@ -102,13 +107,17 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <!-- 页码 -->
             <div class="pager">
-            <el-pagination
-                layout="prev, pager, next"
-                :total="total"
-                @current-change="handlePage"
-                >
-            </el-pagination>
+                <el-pagination
+                layout="sizes, prev, pager, next"
+                    :total="total"
+                    @current-change="handlePage"
+                    @size-change="handleSizeChange"
+                    :page-sizes="[5, 10,15]"
+                    :page-size="pageData.limit"   
+                    >
+                </el-pagination>
             </div>
         </div>
     </div>
@@ -243,6 +252,10 @@ export default {
             this.getUserList()
         },
 
+        handleSizeChange(val) {
+            this.pageData.limit = val
+            this.getUserList()
+        },
         //搜索
         onSearch() {
             this.getUserList()
